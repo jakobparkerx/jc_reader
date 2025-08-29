@@ -30,7 +30,8 @@ if uploaded_file:
     st.text(f"Normalized Text: {normalized_text}")
 
     if match:
-        st.success(f"✅ Job Reference Found: {match.group(1)}")
+        st.success(f"✅ Job Reference Found: {normalized_text}")
+")
     else:
         st.error("❌ No job reference found.")
 
