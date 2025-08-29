@@ -4,6 +4,8 @@ import pytesseract
 import re
 import numpy as np
 
+pytesseract.pytesseract.tesseract_cmd = "/usr/bin/tesseract"
+
 st.set_page_config(page_title="Job Ref Extractor", page_icon="📋")
 
 st.title("📋 Job Reference Extractor")
