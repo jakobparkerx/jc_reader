@@ -1,7 +1,7 @@
 import streamlit as st
+import numpy as np
 import cv2
 import easyocr
-import numpy as np
 import re
 
 st.title("📋 Job Reference Extractor")
@@ -13,23 +13,25 @@ if uploaded_file:
     img = cv2.imdecode(file_bytes, 1)
     st.image(img, caption="Uploaded Image", use_column_width=True)
 
-    # Convert to grayscale
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-    # OCR with easyocr
     reader = easyocr.Reader(['en'])
     result = reader.readtext(gray)
 
-    # Combine text
     text = " ".join([r[1] for r in result])
 
-    # Regex for job ref
-    match = re.search(r"(J-[A-Z0-9]{8})", text)
+    # Normalize OCR errors: replace 'O' with '0'
+    normalized_text = text.replace('O', '0')
+
+    match = re.search(r"(J-[A-Z0-9]{8})", normalized_text)
 
     st.subheader("🔎 OCR Result")
     st.text(text)
+    st.text(f"Normalized Text: {normalized_text}")
+
     if match:
         st.success(f"✅ Job Reference Found: {match.group(1)}")
     else:
         st.error("❌ No job reference found.")
+
 
