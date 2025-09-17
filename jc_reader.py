@@ -23,7 +23,7 @@ if uploaded_file:
     with st.spinner("Scanning for Job Reference..."):
         result = reader.readtext(gray)
         text = " ".join([r[1] for r in result])
-        normalized_text = text.replace('O', '0')
+        normalised_text = text.replace('O', '0')
         
         match = re.search(r"(J-[A-Z0-9]{8})", normalized_text)
 
